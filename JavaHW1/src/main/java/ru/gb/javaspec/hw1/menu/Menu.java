@@ -1,5 +1,8 @@
-package ru.gb.javaspec.hw1.servises;
+package ru.gb.javaspec.hw1.menu;
 
+/**
+ * Элемент Меню для контролера
+ */
 public class Menu {
     private String name;
     private Runnable action;
@@ -9,6 +12,10 @@ public class Menu {
         action=null;
     }
 
+    /**
+     * Описание действия в пункте меню
+     * @param action - Runable функциональный интерфейс
+     */
     public void setAction(Runnable action) {
         this.action = action;
     }

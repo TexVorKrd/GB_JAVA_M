@@ -1,7 +1,7 @@
 package ru.gb.javaspec.hw1.cesar_crypto;
 
 /**
- * Реализация алгоритма шифрования цезаря черз смещение побайтово
+ * Реализация алгоритма шифрования цезаря черз смещение посимвольно
  */
 public class CesarCryptoImpl implements Crypto {
 
@@ -11,6 +11,7 @@ public class CesarCryptoImpl implements Crypto {
 
     /**
      * Конструктор для создания шифратора/дешифратора
+     *
      * @param key - ключ шифрования
      */
     public CesarCryptoImpl(int key) {
@@ -18,7 +19,9 @@ public class CesarCryptoImpl implements Crypto {
     }
 
     /**
-     * Шифорование сообщеня
+     * Шифорование сообщения.
+     * Работает на люпом смещении в размере параметка int
+     *
      * @param msg - шифруемое сообщение
      * @return - зашифрованное сообщение
      */
@@ -37,6 +40,7 @@ public class CesarCryptoImpl implements Crypto {
 
     /**
      * Расшифровыает сообщение
+     *
      * @param msg - зашифроанное соощение
      * @return - расшифрованное сообщение
      */
