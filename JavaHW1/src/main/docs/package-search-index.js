@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ru.gb.javaspec.hw1"},{"l":"ru.gb.javaspec.hw1.cesar_crypto"},{"l":"ru.gb.javaspec.hw1.controler"},{"l":"ru.gb.javaspec.hw1.menu"}]
