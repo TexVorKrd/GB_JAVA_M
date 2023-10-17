@@ -1,6 +1,8 @@
 package ru.gb.javaspec.hw1;
 
 import ru.gb.javaspec.hw1.cesar_crypto.CesarCryptoImpl;
+import ru.gb.javaspec.hw1.servises.Conroler;
+import ru.gb.javaspec.hw1.servises.MenuList;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,5 +17,8 @@ public class Main {
         System.out.println();
         System.out.println(crypto.decrypt(cryptMsg));
         System.out.println(msg.equals(crypto.decrypt(crypto.crypt(msg))));
+
+        Conroler conroler = new Conroler(crypto);
+        conroler.lanch();
     }
 }
