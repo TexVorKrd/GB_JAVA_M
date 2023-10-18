@@ -1,0 +1,8 @@
+#FROM bellsoft/liberica-openjdk-alpine:latest
+FROM openjdk:latest
+COPY ./java ./src
+RUN mkdir ./out
+RUN javac -sourcepath ./src -d out src/ru/gb/javaspec/hw1/Main.java
+CMD java -classpath ./out ru.gb.javaspec.hw1.Main
+#RUN javac -sourcepath ./src -d out src/ru/gb/javaspec/hw1/Main1.java
+#CMD java -classpath ./out ru.gb.javaspec.hw1.Main1

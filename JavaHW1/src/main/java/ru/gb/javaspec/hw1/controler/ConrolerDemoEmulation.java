@@ -4,15 +4,15 @@ import ru.gb.javaspec.hw1.cesar_crypto.Crypto;
 import ru.gb.javaspec.hw1.menu.Menu;
 import ru.gb.javaspec.hw1.menu.MenuList;
 
-import java.util.NoSuchElementException;
+import java.util.ArrayDeque;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Демонстрация работы шифрования дешифрования
  */
-public class ConrolerDemo {
+public class ConrolerDemoEmulation {
 
     //Кодировщик
     Crypto coder;
@@ -33,7 +33,7 @@ public class ConrolerDemo {
      *
      * @param coder - принимает систему шифрования.
      */
-    public ConrolerDemo(Crypto coder) {
+    public ConrolerDemoEmulation(Crypto coder) {
         this.coder = coder;
         String test = "тестирование алгоритма шифрования - вврщащйшращиigghbkhb";
         if (test.equals(coder.decrypt(coder.crypt(test)))) {
@@ -56,7 +56,7 @@ public class ConrolerDemo {
         Menu inputMsg = new Menu("Ввод сообщения");
         inputMsg.setAction(() -> {
             System.out.println("Ввод сообщения для шифрования. Если сообщение уже есть оно будет стерто");
-            this.msg = new Scanner(System.in).nextLine();
+            this.msg = "new Scanner(System.in).nextLine() не работает нормально";
             isCrypt = false;
         });
         menuList.addMenu(inputMsg);
@@ -105,48 +105,48 @@ public class ConrolerDemo {
      */
     public void lanch() throws InterruptedException {
         System.out.println("Демо шифрования/дешифрования сообщения");
-        Scanner scanner = new Scanner(System.in);
+        Queue<String> emulate = new ArrayDeque<>();
+
+        emulate.add("1");
+        emulate.add("2");
+        emulate.add("2");
+        emulate.add("3");
+        emulate.add("3");
+        emulate.add("0");
+
+
         boolean isExit = false;
         StringBuilder view;
         String selectMenu;
+        selectMenu = emulate.poll();
         while (!isExit) {
 
-                view = new StringBuilder();
-                view.append("----------------\n")
-                        .append("MSG=");
+            view = new StringBuilder();
+            view.append("----------------\n")
+                    .append("MSG=");
 
-                if (msg != null) {
-                    view.append(msg);
-                } else {
-                    view.append("{Сообщение пока не задано}");
-                }
+            if (msg != null) {
+                view.append(msg);
+            } else {
+                view.append("{Сообщение пока не задано}");
+            }
 
-                System.out.println(view.toString());
-                menuList.menuPrint();
+            System.out.println(view.toString());
+            menuList.menuPrint();
 
-            selectMenu = scanner.next();
-//                int sMenu = scanner.nextInt();
-//            try {
-//
-//
-//                selectMenu = scanner.nextLine();
-//            }
-//            catch (NoSuchElementException exception){
-//                selectMenu="";
-//            }
 
-                try {
+            try {
                 int sMenu = Integer.parseInt(selectMenu);
-                    if (sMenu == 0) isExit = true;
-                    if (menuList.getMenuList().containsKey(sMenu)) {
-                        menuList.getMenuList().get(sMenu).getAction().run();
-                    } else {
-                        System.out.println("Выберите доступный пункт меню");
-                    }
-                } catch (NumberFormatException exception) {
-                    System.out.println("Выберите корректно пункт меню");
+                if (sMenu == 0) isExit = true;
+                if (menuList.getMenuList().containsKey(sMenu)) {
+                    menuList.getMenuList().get(sMenu).getAction().run();
+                } else {
+                    System.out.println("Выберите доступный пункт меню");
                 }
-
+            } catch (NumberFormatException exception) {
+                System.out.println("Выберите корректно пункт меню");
+            }
+            selectMenu=emulate.poll();
         }
     }
 }
