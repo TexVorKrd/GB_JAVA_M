@@ -171,6 +171,7 @@ public class Main2 {
      * @return
      */
     static boolean checkWin(char c){
+        int tokensForWin=winCount;
 
 
 
@@ -189,13 +190,13 @@ public class Main2 {
                  * - слева фишка отличная от переданной.
                  */
 
-                if ((field[y][x] == c) && (fieldSizeX - x >= winCount)) {
+                if ((field[y][x] == c) && (fieldSizeX - x >= tokensForWin)) {
 
                     int count = 0;
-                    for (int i = x; i < x + winCount; i++) {
-                        if (field[y][i] == c) count++;
+                    for (int i = 0; i < tokensForWin; i++) {
+                        if (field[y][x+i] == c) count++;
                     }
-                    if (count == winCount) return true;
+                    if (count == tokensForWin-1) return true;
                 }
 
                 /**
@@ -205,13 +206,45 @@ public class Main2 {
                  * - сверху фишка отличная от переданной.
                  */
 
-                if ((field[y][x] == c) && (fieldSizeY - y >= winCount)) {
+                if ((field[y][x] == c) && (fieldSizeY - y >= tokensForWin)) {
 
                     int count = 0;
-                    for (int i = y; i < y + winCount; i++) {
-                        if (field[i][x] == c) count++;
+                    for (int i = 1; i < tokensForWin; i++) {
+                        if (field[y+i][x] == c) count++;
                     }
-                    if (count == winCount) return true;
+                    if (count == tokensForWin-1) return true;
+                }
+
+                /**
+                 * Проверяем вправо-вниз. Начинаем проверку только если:
+                 * - текущая фишка соответствует переданной;
+                 * - снизу достаточно фишек;
+                 * - сверху фишка отличная от переданной.
+                 */
+
+                if ((field[y][x] == c) && (fieldSizeY - y >= tokensForWin)&& (fieldSizeX - x >= tokensForWin)) {
+
+                    int count = 0;
+                    for (int i = 1; i < tokensForWin; i++) {
+                        if (field[y+i][x+i] == c) count++;
+                    }
+                    if (count == tokensForWin-1) return true;
+                }
+
+                /**
+                 * Проверяем влево-вниз. Начинаем проверку только если:
+                 * - текущая фишка соответствует переданной;
+                 * - снизу достаточно фишек;
+                 * - сверху фишка отличная от переданной.
+                 */
+
+                if ((field[y][x] == c) && (fieldSizeY - y >= tokensForWin)&& (x+1-tokensForWin>=0)) {
+
+                    int count = 0;
+                    for (int i = 1; i < tokensForWin; i++) {
+                        if (field[y+i][x-i] == c) count++;
+                    }
+                    if (count == tokensForWin-1) return true;
                 }
 
 

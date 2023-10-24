@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         CesarCryptoImpl crypto = new CesarCryptoImpl((int)(Math.random()*1234));
-        ConrolerDemoEmulation conroler = new ConrolerDemoEmulation(crypto);
+        ConrolerDemo conroler = new ConrolerDemo(crypto);
         try {
             conroler.lanch();
         }
