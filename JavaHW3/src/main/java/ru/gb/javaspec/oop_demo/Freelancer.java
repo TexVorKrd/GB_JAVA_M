@@ -1,16 +1,13 @@
 package ru.gb.javaspec.oop_demo;
 
-public class StaffWorker extends Worker {
+public class Freelancer extends Worker {
 
-    int salary;
-
-    public StaffWorker(int yearOfBirthday, String firstName, String innId, int salary) {
+    public Freelancer(int yearOfBirthday, String firstName, String innId, int salary) {
         super(yearOfBirthday, firstName, innId, salary);
     }
 
-    public StaffWorker(int yearOfBirthday, String firstName, String secondName, String innId, int salary) {
+    public Freelancer(int yearOfBirthday, String firstName, String secondName, String innId, int salary) {
         super(yearOfBirthday, firstName, secondName, innId, salary);
-        this.salary = salary;
     }
 
     /**
@@ -20,6 +17,6 @@ public class StaffWorker extends Worker {
      */
     @Override
     public double avrSallary() {
-        return salary;
+        return 20.8D * 8 * super.salary;
     }
 }

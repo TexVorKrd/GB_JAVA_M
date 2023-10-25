@@ -1,9 +1,9 @@
 package ru.gb.javaspec.oop_demo.comparator_test;
 
-import ru.gb.javaspec.oop_demo.Frilancer;
+import ru.gb.javaspec.oop_demo.Freelancer;
 import ru.gb.javaspec.oop_demo.Worker;
 
-public class FrilancerNew extends Frilancer {
+public class FrilancerNew extends Freelancer {
     public FrilancerNew(int yearOfBirthday, String firstName, String innId, int salary) {
         super(yearOfBirthday, firstName, innId, salary);
     }
