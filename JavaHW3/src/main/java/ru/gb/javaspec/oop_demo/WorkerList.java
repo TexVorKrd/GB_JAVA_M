@@ -28,28 +28,28 @@ public class WorkerList implements Iterable<Worker> {
      *
      * @return - Iterator
      */
+
+    int position;
     @Override
     public Iterator<Worker> iterator() {
 
         /*
         Проще конечно было бы сделать так
-        return workerList.iterator()
+        return workerList.iterator();
          */
-        ;
 
-        final int[] position = {0};
+        position=0;
         return new Iterator<Worker>() {
             @Override
             public boolean hasNext() {
-                if (workerList == null || position[0] >= workerList.size()) return false;
+                if (workerList == null || position >= workerList.size()) return false;
                 return true;
             }
 
             @Override
             public Worker next() {
-                position[0]++;
-                return workerList.get(position[0] - 1);
-
+                position++;
+                return workerList.get(position - 1);
             }
         };
     }
