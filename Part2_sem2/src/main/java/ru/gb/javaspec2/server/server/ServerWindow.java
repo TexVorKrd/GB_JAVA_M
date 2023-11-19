@@ -1,101 +1,39 @@
 package ru.gb.javaspec2.server.server;
 
-import ru.gb.javaspec2.server.client.ClientGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class ServerWindow extends JFrame {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;
-    public static final String LOG_PATH = "src/main/java/ru/gb/javaspec2/server/log.txt";
-
-    List<ClientGUI> clientGUIList;
 
     JButton btnStart, btnStop;
     JTextArea log;
-    boolean work;
 
-    public ServerWindow(){
-        clientGUIList = new ArrayList<>();
+    private Server server;
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
+
+    public ServerWindow() {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Chat server");
         setLocationRelativeTo(null);
-
         createPanel();
+    }
 
+    public void activateServerGUI() {
         setVisible(true);
     }
 
-    public boolean connectUser(ClientGUI clientGUI){
-        if (!work){
-            return false;
-        }
-        clientGUIList.add(clientGUI);
-        return true;
-    }
-
-    public String getLog() {
-        return readLog();
-    }
-
-    public void disconnectUser(ClientGUI clientGUI){
-        clientGUIList.remove(clientGUI);
-        if (clientGUI != null){
-            clientGUI.disconnectFromServer();
-        }
-    }
-
-    public void message(String text){
-        if (!work){
-            return;
-        }
-//        text += "";
-        appendLog(text);
-        answerAll(text);
-        saveInLog(text);
-    }
-//
-    private void answerAll(String text){
-        for (ClientGUI clientGUI: clientGUIList){
-            clientGUI.answer(text); // нет в классе
-        }
-    }
-
-    private void saveInLog(String text){
-        try (FileWriter writer = new FileWriter(LOG_PATH, true)){
-            writer.write(text);
-            writer.write("\n");
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private String readLog(){
-        StringBuilder stringBuilder = new StringBuilder();
-        try (FileReader reader = new FileReader(LOG_PATH);){
-            int c;
-            while ((c = reader.read()) != -1){
-                stringBuilder.append((char) c);
-            }
-            stringBuilder.delete(stringBuilder.length()-1, stringBuilder.length());
-            return stringBuilder.toString();
-        } catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private void appendLog(String text){
+    public void appendLog(String text) {
         log.append(text + "\n");
     }
 
@@ -113,33 +51,36 @@ public class ServerWindow extends JFrame {
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (work){
-                    appendLog("Сервер уже был запущен");
-                } else {
-                    work = true;
-                    appendLog("Сервер запущен!");
-                }
+                server.start();
             }
         });
 
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!work){
-                    appendLog("Сервер уже был остановлен");
-                } else {
-                    work = false;
-                    for (ClientGUI clientGUI: clientGUIList){
-                        disconnectUser(clientGUI); // Как в коде
-                    }
-                    //TODO поправить удаление
-                    appendLog("Сервер остановлен!");
-                }
+                server.stop();
             }
         });
 
         panel.add(btnStart);
         panel.add(btnStop);
         return panel;
+    }
+
+    void start(boolean work) {
+        if (work) {
+            appendLog("Сервер уже был запущен");
+        } else {
+            work = true;
+            appendLog("Сервер запущен!");
+        }
+    }
+
+    void stop(boolean work) {
+        if (!work) {
+            appendLog("Сервер уже был остановлен");
+        } else {
+            appendLog("Сервер остановлен!");
+        }
     }
 }
